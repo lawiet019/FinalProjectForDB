@@ -3,6 +3,7 @@ CREATE DATABASE itws6960_project;
 
 USE itws6960_project;
 DROP TABLE IF EXISTS inspections;
+DROP TABLE IF EXISTS grades;
 DROP TABLE IF EXISTS landmarks;
 DROP TABLE IF EXISTS restuarants;
 DROP TABLE IF EXISTS subway;
@@ -12,9 +13,14 @@ DROP TABLE IF EXISTS wifi;
 CREATE TABLE inspections (
     CAMIS varchar(25),
     InspectionDate timestamp,
-    violationCodes text[][],
-    score int,
-    grade char(1)
+    ViolationCode VARCHAR(10),
+    score int
+);
+
+CREATE TABLE grades (
+    CAMIS VARCHAR(25),
+    GradeDate TIMESTAMP,
+    Grade CHAR(1)
 );
 
 CREATE TABLE landmarks (
@@ -31,6 +37,7 @@ CREATE TABLE restuarants (
     longitude float(10),
     latitude float(10),
     restuarantName varchar(255),
+    cuisineType VARCHAR(255),
     street varchar(255),
     zipcode int,
     phone varchar(10) -- phone numebr char or int?? 
