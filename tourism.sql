@@ -40,14 +40,15 @@ CREATE TABLE restuarants (
     cuisineType VARCHAR(255),
     street varchar(255),
     zipcode int,
-    phone varchar(10) -- phone numebr char or int?? 
+    phone varchar(10) -- phone numebr char or int??
 );
 
 CREATE TABLE subway (
     longitude float(10),
     latitude float(10),
     name varchar(255),
-    lines varchar(25)
+    lines varchar(25),
+    objectID char(4)
 );
 
 CREATE TABLE violations (
@@ -61,7 +62,9 @@ CREATE TABLE wifi (
     wifiID varchar(50),
     address varchar(255),
     accessPointName varchar(255),
-    wifiType varchar(255)
+    wifiType varchar(255),
+    remarks varchar(50),
+    city varchar(10),
+    SSID varchar(50),
+    activatedDate TIMESTAMP
 );
-
-

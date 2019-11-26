@@ -1,14 +1,17 @@
 import psycopg2
 from sodapy import Socrata
 import pandas as pd
+import pymongo
+
+
 
 RESTAURANT_DATASET_IDENTIFIER = "43nn-pn8j"
 '''
     table                 done
-    inspections               
-    grades                  
-    restuarants             
-    violations              
+    inspections
+    grades
+    restuarants
+    violations
 '''
 
 client = Socrata("data.cityofnewyork.us", None)
@@ -23,7 +26,7 @@ except psycopg2.DatabaseError:
 
 cursor = conn.cursor()
 
-data =  {'CAMIS': list(full_restuarant_df['camis']), 
+data =  {'CAMIS': list(full_restuarant_df['camis']),
         'inspectionDate': list(full_restuarant_df['inspection_date']),
         'violationCodes': list(full_restuarant_df['violation_code']),
         'score': list(full_restuarant_df['score'])
@@ -31,28 +34,28 @@ data =  {'CAMIS': list(full_restuarant_df['camis']),
 inspections_df = pd.DataFrame(data)
 '''
 for i in range(0, len(inspections_df)):
-    cursor.execute( "INSERT INTO inspections VALUES (%s, %s, %s, %s)" % 
-                    (inspections_df['CAMIS'][i], 
+    cursor.execute( "INSERT INTO inspections VALUES (%s, %s, %s, %s)" %
+                    (inspections_df['CAMIS'][i],
                     inspections_df['inspectionDate'][i],
                     inspections_df['violationCodes'][i],
                     inspections_df['score'][i]
                     )
         )
 '''
-data =  {'CAMIS': list(full_restuarant_df['camis']), 
+data =  {'CAMIS': list(full_restuarant_df['camis']),
         'gradeDate': list(full_restuarant_df['grade_date']),
         'grade': list(full_restuarant_df['grade'])
         }
 grades_df = pd.DataFrame(data)
 '''
 for i in range(0, len(grades_df)):
-    cursor.execute( "INSERT INTO grades VALUES (%s, %s, %s)" % 
-                    (grades_df['CAMIS'][i], 
+    cursor.execute( "INSERT INTO grades VALUES (%s, %s, %s)" %
+                    (grades_df['CAMIS'][i],
                     grades_df['gradeDate'][i],
                     grades_df['grade'][i]
                     )
         )
-''' 
+'''
 
 data =  {'CAMIS': list(full_restuarant_df['camis']),
         'longitude': list(full_restuarant_df['longitude']),
@@ -66,8 +69,8 @@ data =  {'CAMIS': list(full_restuarant_df['camis']),
 restuarants_df = pd.DataFrame(data)
 '''
 for i in range(0, len(restuarants_df)):
-    cursor.execute( "INSERT INTO restuarants VALUES (%s, %s, %s,%s, %s, %s,%s, %s)" % 
-                    (restuarants_df['CAMIS'][i], 
+    cursor.execute( "INSERT INTO restuarants VALUES (%s, %s, %s,%s, %s, %s,%s, %s)" %
+                    (restuarants_df['CAMIS'][i],
                     restuarants_df['longitude'][i],
                     restuarants_df['latitude'][i],
                     restuarants_df['restuarantName'][i],
@@ -77,7 +80,7 @@ for i in range(0, len(restuarants_df)):
                     restuarants_df['phone'][i]
                     )
         )
-''' 
+'''
 data =  {'violationCode': full_restuarant_df['violation_code'],
         'violationDescription': full_restuarant_df['violation_description']
         }
@@ -93,12 +96,12 @@ for i in range(0, len(violations_df)):
 violations_df = pd.DataFrame(list(violations_dict.items()), columns=list(violations_df.columns) )
 '''
 for i in range(0, len(violations_df)):
-    cursor.execute( "INSERT INTO grades VALUES (%s, %s)" % 
-                    (violations_df['violationCode'][i], 
+    cursor.execute( "INSERT INTO grades VALUES (%s, %s)" %
+                    (violations_df['violationCode'][i],
                     violations_df['violationDescription'][i]
                     )
         )
-''' 
-conn.commit() 
+'''
+conn.commit()
 # violation_code
 # violation_description
