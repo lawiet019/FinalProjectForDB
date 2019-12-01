@@ -16,14 +16,14 @@ According to the FD above, we can conclude that keys can be (wifiID) or (lon,lat
 
 R3 = (NTAcode,NTA)
 
-R4 = (NTAcode,borough,type,location,latitude,longitude,city SSID,activated,NTA,NTAcode,bin,bbl)
+R4 = (NTAcode,borough,type,location,latitude,longitude,city SSID,activated,NTA,NTAcode)
 
  BCNF Decomposition cannot apply to  the R3  by  and R4 is covered by R1,R2
 so the schema will be
 ```
-WIFI1(__wifiID__,borough,type,location,latitude,longitude,city SSID,activated,NTA,NTAcode,bin,bbl)
+WIFI1(__wifiID__,borough,type,location,latitude,longitude,city SSID,activated,NTA,NTAcode)
 WIFI2(__NTAcode__,NTA)
-WIFI3(__latitude__,__longitude__,wifiID,borough,type,location,city SSID,activated,NTA,NTAcode,bin,bbl)
+WIFI3(__latitude__,__longitude__,wifiID,borough,type,location,city SSID,activated,NTA,NTAcode)
 
 ```
 
