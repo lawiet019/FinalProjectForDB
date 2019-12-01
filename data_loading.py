@@ -29,16 +29,18 @@ data =  {'CAMIS': list(full_restuarant_df['camis']),
         'score': list(full_restuarant_df['score'])
         }
 inspections_df = pd.DataFrame(data)
-'''
+
 for i in range(0, len(inspections_df)):
     cursor.execute( "INSERT INTO inspections VALUES (%s, %s, %s, %s)" % 
                     (inspections_df['CAMIS'][i], 
-                    inspections_df['inspectionDate'][i],
-                    inspections_df['violationCodes'][i],
-                    inspections_df['score'][i]
+                    inspections_df['inspectionDate'][i].split('T')[0],
+                    str(inspections_df['violationCodes'][i]),
+                    str(inspections_df['score'][i])
                     )
         )
-'''
+
+conn.commit()
+
 data =  {'CAMIS': list(full_restuarant_df['camis']), 
         'gradeDate': list(full_restuarant_df['grade_date']),
         'grade': list(full_restuarant_df['grade'])
