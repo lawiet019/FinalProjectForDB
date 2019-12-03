@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS itws6960_project;
+CREATE DATABASE itws6960_project;
