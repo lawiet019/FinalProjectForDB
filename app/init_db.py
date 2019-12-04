@@ -5,9 +5,10 @@ import configparser
 # read the attributes from the config
 conf = configparser.ConfigParser()
 conf.read("database.conf")
+
 pos_dbname = conf.get('postgresql', 'db_name')
 pos_host = conf.get('postgresql', 'db_host')
-pos_port = conf.get('postgresql', 'db_port')
+pos_port = conf.getInt('postgresql', 'db_port')
 pos_user = conf.get('postgresql', 'db_user')
 pos_pwd = conf.get('postgresql', 'db_password')
 
@@ -18,9 +19,9 @@ except:
     print('I am unable to connect the database')
     sys.exit(1)
 with conn.cursor() as cursor:
-    with open('create-tables.sql', 'r') as restaurant_data:
+    with open('SQL/create-tables.sql', 'r') as restaurant_data:
         setup_queries = restaurant_data.read()
         cursor.execute(setup_queries)
     conn.commit()
-# import data_loading_formongo
-import dataloading
+from app import data_loading_formongo
+from app import dataloading
