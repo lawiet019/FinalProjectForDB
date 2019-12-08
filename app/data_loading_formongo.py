@@ -88,7 +88,7 @@ with  open("data/wifi.csv", "r",encoding="utf-8") as f:
         if reader.line_num == 1:
             continue
         new_wifi = {}
-        new_wifi["wifiID "] = wifi[2]
+        new_wifi["wifiID"] = wifi[2]
         loc_data = re.findall(r'\d+.\d+',wifi[1])
         new_wifi["longitude"], new_wifi["latitude"] = float(loc_data[0]),float(loc_data[1])
         new_wifi["wifiType"] = wifi[3]

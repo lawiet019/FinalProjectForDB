@@ -8,7 +8,7 @@ conf.read("database.conf")
 
 pos_dbname = conf.get('postgresql', 'db_name')
 pos_host = conf.get('postgresql', 'db_host')
-pos_port = conf.getInt('postgresql', 'db_port')
+pos_port = conf.getint('postgresql', 'db_port')
 pos_user = conf.get('postgresql', 'db_user')
 pos_pwd = conf.get('postgresql', 'db_password')
 
@@ -24,4 +24,4 @@ with conn.cursor() as cursor:
         cursor.execute(setup_queries)
     conn.commit()
 from app import data_loading_formongo
-from app import dataloading
+# from app import dataloading

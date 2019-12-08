@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
+    <title></title>
+    <style type="text/css">
+      .main{
+        width: 80%;
+        margin: 0 auto;
+      }
+      .bg-dark{
+        background-color: #343a40 !important;
+      }
+      .bg-light{
+        background-color: #f8f9fa !important;
+      }
+      .section{
+        width: 80%;
+        margin: 20px auto;
+        background: white;
+        color: #343a40;
+        border-radius: 5px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+        padding: 10px;
+      }
+      .navbar-brand{
+        color: #fff;
+      }
+
+    </style>
+  </head>
+  <body class="bg-light">
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="{{ url_for('index')}}">Title</a>
+    </nav>
+    {% block  body_block %}
+
+    {% endblock %}
+  </body>
+</html>
