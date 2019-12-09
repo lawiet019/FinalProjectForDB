@@ -1,3 +1,4 @@
+USE itws6960_project;
 DROP TABLE IF EXISTS inspections;
 DROP TABLE IF EXISTS grades;
 DROP TABLE IF EXISTS landmarks;
@@ -8,7 +9,7 @@ DROP TABLE IF EXISTS wifi;
 
 CREATE TABLE inspections (
     CAMIS varchar(25),
-    InspectionDate Date,
+    InspectionDate timestamp,
     ViolationCode VARCHAR(10),
     score int
 );
