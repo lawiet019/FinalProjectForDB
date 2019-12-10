@@ -27,8 +27,29 @@
   <input type="text" class="btn-inline" placeholder="code btw 1 and 1932 ..." name="id">
   <button type="submit" class="btn btn-default btn-inline">Search</button>
 </form>
-
 </div>
+
+<!-- find the restuarants near landmarks without violations in 2019 -->
+<div class="section">
+<p> <strong>find the restuarants near certain landmarks without violations in three months </strong> </p>
+<form class="form-horizontal" method="POST" action="{{ url_for('goodrestnl_result') }}">
+  <span>the landmark whose objectID is </span>
+  <input type="text" class="btn-inline" placeholder="code btw 1 and 1388 ..." name="id">
+  <span> or the  name is like <span>
+    <input type="text" class="btn-inline" placeholder="input the name of landmark" name="name">
+  <button type="submit" class="btn btn-default btn-inline">Search</button>
+</form>
+</div>
+
+<!-- find the landmark which has most great restaurants -->
+<div class="section">
+<p> <strong>find the landmark which has most great restaurants </strong> </p>
+<form class="form-horizontal" method="GET" action="{{ url_for('landmarknr_result') }}">
+<span> To be specific, it will order the restaurant by the ratio of  number of violations to the number of restuarants, and the number of restuarants </span>
+<button type="submit" class="btn btn-default btn-inline">View</button>
+</form>
+</div>
+
 </main>
 
 

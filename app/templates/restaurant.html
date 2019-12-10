@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block  body_block %}
+<p><strong> there are {{count}} results are found<strong></p>
+<table class="table table-bordered">
+<tr>
+    <th>restaurantName</th>
+    <th>cuisineType</th>
+    <th>address</th>
+</tr>
+{% for rest in rest_list%}
+<tr>
+    <td>{{ rest["name"] }}</td>
+    <td>{{ rest["type"] }}</td>
+    <td>{{ rest["address"] }}</td>
+
+</tr>
+{% endfor %}
+{% endblock%}

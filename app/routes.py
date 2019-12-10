@@ -26,7 +26,7 @@ try:
 except:
     print('I am unable to connect the database')
     sys.exit(1)
-P_cursor = conn.cursor()
+cursor = conn.cursor()
 
 #connect the mongodb
 
@@ -59,3 +59,71 @@ def wifinearE_result():
         count = db["wifi"].find({'latitude':{'$gt': e_lat-0.01,'$lt': e_lat+0.01},'longitude':{'$gt': e_lon-0.01,'$lt': e_lon+0.01}}).count()
         wifi_list  = db["wifi"].find({'latitude':{'$gt': e_lat-0.01,'$lt': e_lat+0.01},'longitude':{'$gt': e_lon-0.01,'$lt': e_lon+0.01}})
         return render_template('wifiresult.html',count = count,wifi_list = wifi_list)
+
+@app.route('/restwithoutvio',methods=['GET','POST'])
+def goodrestnl_result():
+    if request.method == 'POST':
+        id = request.values.get("id")
+        name ="'%" + request.values.get("name") + "%'"
+
+        query = 'SELECT restuarantName, cuisineType,address\
+        From landmarks,restuarants\
+        WHERE centerLogitude -restuarants.longitude <= 0.02 and centerLogitude -restuarants.longitude >= -0.02\
+        and centerLatitude -restuarants.latitude <= 0.02 and centerLatitude -restuarants.latitude >= -0.02\
+        and (landmarks.objectID = %s or landmarkName ilike %s )\
+        and CAMIS not in (\
+        Select CAMIS\
+        From inspections\
+        where extract(month from inspectiondate) =2019\
+          );'
+        cursor.execute(query %(id,name))
+        records = cursor.fetchall()
+        rest_list= []
+        for record in records:
+            new_rest = {}
+            new_rest["name"] = record[0]
+            new_rest["type"] = record[1]
+            new_rest["address"] = record[2]
+            rest_list.append(new_rest)
+        query2 = 'SELECT count(CAMIS)\
+        From landmarks,restuarants\
+        WHERE centerLogitude -restuarants.longitude <= 0.02 and centerLogitude -restuarants.longitude >= -0.02\
+        and centerLatitude -restuarants.latitude <= 0.02 and centerLatitude -restuarants.latitude >= -0.02\
+        and (landmarks.objectID = %s or landmarkName ilike %s )\
+        and CAMIS not in (\
+        Select CAMIS\
+        From inspections\
+        where extract(month from inspectiondate) =2019\
+          );'
+        cursor.execute(query2 %(id,name))
+        result = cursor.fetchall()
+        count = result[0][0]
+        return render_template('restaurant.html',count = count,rest_list = rest_list)
+@app.route('/landmarknr')
+def landmarknr_result():
+    query = "select distinct landmarkname, sum(ct)/count(restuarants.CAMIS), count(restuarants.CAMIS)\
+    from landmarks,\
+    restuarants,\
+    (Select count(CAMIS) as ct, CAMIS\
+    From inspections\
+    Group By CAMIS) ctCAMIS\
+    WHERE centerLogitude -restuarants.longitude <= 0.02 and centerLogitude -restuarants.longitude >= -0.02\
+    and centerLatitude -restuarants.latitude <= 0.02 and centerLatitude -restuarants.latitude >= -0.02\
+    and ctCAMIS.CAMIS = restuarants.CAMIS\
+    and restuarants.CAMIS in (\
+    SELECT CAMIS\
+    FROM grades\
+    WHERE grade ='A'\
+      )\
+    Group by landmarkname\
+    order by sum(ct)/count(restuarants.CAMIS), count(restuarants.CAMIS) DESC;"
+    cursor.execute(query)
+    records = cursor.fetchall()
+    landmark_list = []
+    for record in records:
+        new_landmark = {}
+        new_landmark["name"] = record[0]
+        new_landmark["ratio"] = record[1]
+        new_landmark["num"] = record[2]
+        landmark_list.append(new_landmark)
+    return render_template('landmarkresult.html',landmark_list = landmark_list)
