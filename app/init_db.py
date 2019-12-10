@@ -24,4 +24,4 @@ with conn.cursor() as cursor:
         cursor.execute(setup_queries)
     conn.commit()
 from app import data_loading_formongo
-# from app import dataloading
+from app import dataloading

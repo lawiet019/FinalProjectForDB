@@ -43,10 +43,10 @@ rest2(__CAMIS__,DBA,boro,building,street,phone,cuisine,Zipcode,BIN,BBL,NTAcode,l
 rest3(__CAMIS__,__GradeDate__,Grade)
 rest3(__lat__,__lon__,__inspectionDate__,__violationCode__ ,violationdescription,grade)
 rest4(__lat__,__lon__,DBA,boro,building,street,phone,cuisine,Zipcode,BIN,BBL,NTAcode,CAMIS)
-
 rest5(__lat__,__lon__,,__GradeDate__,Grade)
 
 ```
+
 - LPC(__LPC__,lat,lon,borough,block,lot,address,BBL,LPC_name,URLreport)
 - loc ->every other attribute
 - lon,lat -> every other attribute

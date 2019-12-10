@@ -1,4 +1,3 @@
-USE itws6960_project;
 DROP TABLE IF EXISTS inspections;
 DROP TABLE IF EXISTS grades;
 DROP TABLE IF EXISTS landmarks;
@@ -36,7 +35,7 @@ CREATE TABLE restuarants (
     restuarantName varchar(255),
     cuisineType VARCHAR(255),
     street varchar(255),
-    zipcode int,
+    zipcode varchar(6),
     phone varchar(10) -- phone numebr char or int??
 );
 
@@ -50,7 +49,7 @@ CREATE TABLE subway (
 
 CREATE TABLE violations (
     violationID varchar(25),
-    violationDescription varchar(255)
+    violationDescription varchar(500)
 );
 
 CREATE TABLE wifi (

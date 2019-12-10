@@ -69,7 +69,8 @@ with  open("data/subway.csv", "r") as f:
         new_entrance["name"] = entrance[2]
         loc_data = re.findall(r'\d+.\d+',entrance[3])
         new_entrance["longitude"], new_entrance["latitude"] = float(loc_data[0]),float(loc_data[1])
-        new_entrance["line"] = entrance[-1]
+        new_entrance["line"] = entrance[-1].split('-')
+
 
 
         entrance_list.append(new_entrance)
