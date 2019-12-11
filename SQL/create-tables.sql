@@ -1,4 +1,3 @@
-\c itws6960_project;
 DROP TABLE IF EXISTS inspections;
 DROP TABLE IF EXISTS grades;
 DROP TABLE IF EXISTS landmarks;
