@@ -26,4 +26,20 @@
     <td>{{ rest["phone"] }}</td>
 </tr>
 {% endfor %}
+
+<table class="table table-bordered">
+<tr>
+    <th>Inspection Date</th>
+    <th>Violation Code</th>
+    <th>Violation Description</th>
+</tr>
+{% for rest in violationList%}
+<tr>
+    <td>{{ rest["InspectionDate"] }}</td>
+    <td>{{ rest["ViolationCode"] }}</td>
+    <td>{{ rest["ViolationDescription"] }}</td>
+</tr>
+{% endfor %}
+
+
 {% endblock%}

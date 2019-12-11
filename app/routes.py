@@ -148,6 +148,7 @@ def restaurantSearch_results():
         rest_list= []
         for record in records:
             new_rest = {}
+            new_rest["CAMIS"] = record[0]
             new_rest["restaurantName"] = record[1]
             new_rest["longitude"] = record[2]
             new_rest["latitude"] = record[3]
@@ -158,3 +159,56 @@ def restaurantSearch_results():
             new_rest["phone"] = record[8]
             rest_list.append(new_rest)
         return render_template('restaurantFull.html',rest_list = rest_list)
+
+@app.route('/violationsForARestaurant',methods=['GET','POST'])
+def restaurantVioSearch_results():
+    if request.method == 'POST':    
+        CAMIS_ID = request.values.get("name")
+        expanded = request.values.get("expanded")
+        query = "select CAMIS, restuarantName, longitude, latitude, cuisineType, neighborhood, street, zipcode, phone\
+        FROM restuarants\
+        WHERE CAMIS = '%s'"
+        cursor.execute(query %(str(CAMIS_ID)))
+        records = cursor.fetchall()
+        rest_list= []
+        for record in records:
+            new_rest = {}
+            new_rest["CAMIS"] = record[0]
+            new_rest["restaurantName"] = record[1]
+            new_rest["longitude"] = record[2]
+            new_rest["latitude"] = record[3]
+            new_rest["cuisineType"] = record[4]
+            new_rest["neighborhood"] = record[5]
+            new_rest["street"] = record[6]
+            new_rest["zipcode"] = record[7]
+            new_rest["phone"] = record[8]
+            rest_list.append(new_rest)
+        
+        query2 = "select InspectionDate, ViolationCode\
+            from inspections\
+            where CAMIS = '%s'\
+            Order By InspectionDate"
+        cursor.execute(query2 %(CAMIS_ID))
+        records2 = cursor.fetchall()
+        violations = []
+        if(expanded == "Yes"):
+            for record in records2:
+                new_rest = {}
+                new_rest["InspectionDate"] = record[0]
+                new_rest["ViolationCode"] = record[1]
+                query3 = "select ViolationDescription\
+                from violations\
+                where violationID = '%s'"
+                cursor.execute(query3 % (record[1]))
+                descript = cursor.fetchall()
+                new_rest["ViolationDescription"] = descript[0][0]
+                violations.append(new_rest)
+        else:
+            for record in records2:
+                new_rest = {}
+                new_rest["InspectionDate"] = record[0]
+                new_rest["ViolationCode"] = record[1]
+                violations.append(new_rest)
+
+
+        return render_template('violation.html', rest_list = rest_list, violationList = violations)
