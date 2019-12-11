@@ -44,8 +44,8 @@ def index():
 def wifi_result():
     if request.method == 'POST':
         wifiType = request.values.get("wifiTypeSel")
-        neighboorhood  =  request.values.get("neighboorhood")
-        wifi_list = db["wifi"].find({'neighboorhood':neighboorhood,'wifiType':wifiType})
+        neighborhood  =  request.values.get("city")
+        wifi_list = db["wifi"].find({'neighboorhood':neighborhood,'wifiType':wifiType})
         count = db["wifi"].find({'neighboorhood':neighboorhood,'wifiType':wifiType}).count()
         return render_template('wifiresult.html',count = count,wifi_list = wifi_list)
 
