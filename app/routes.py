@@ -233,12 +233,12 @@ def neighborhoodResults():
             new_rest["type"] = "Restaurant"          
             rest_list.append(new_rest)
 
-        query = "select objectID, landmarkName, centerLogitude, centerLatitude, address\
+        query1 = "select objectID, landmarkName, centerLogitude, centerLatitude, address\
         FROM landmarks\
         WHERE neighborhood ilike '%s'"
-        cursor.execute(query %(str(neigh)))
-        records = cursor.fetchall()
-        for record in records:
+        cursor.execute(query1 %(str(neigh)))
+        records1 = cursor.fetchall()
+        for record in records1:
             new_rest = {}
             new_rest["ID"] = record[0]
             new_rest["name"] = record[1]
@@ -247,4 +247,5 @@ def neighborhoodResults():
             new_rest["latitude"] = record[4]
             new_rest["type"] = "Landmark"          
             rest_list.append(new_rest)
+            
         return render_template('featuresNeigh.html', rest_list = rest_list)
