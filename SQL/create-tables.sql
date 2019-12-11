@@ -24,6 +24,7 @@ CREATE TABLE landmarks (
     landmarkName varchar(255),
     centerLogitude float(10),
     centerLatitude float (10),
+    neighborhood varchar(255),
     address varchar(255),
     additionalInfoURL varchar(255) -- can be stored this way because database gives bit.ly that are all under 255 characters
 );
