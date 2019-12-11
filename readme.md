@@ -1,6 +1,25 @@
 ### overview
 In our project, we intend to combine some databases in New York from the angle of tourists. The core attribute of all the databases is their location both geographic coordinate system (longitude and latitude) and neighborhoods. Based on it, when people arrive at a certain landmark, they can get the surroundings including the nearest subway entrance, some good restaurants nearby and free public Wi-Fi they can access to.  Also, according to the distance of landmarks, people can find their next goal. So, it is like a map that focuses on the landmarks which can bring convenience to the visitors.
 
+### the data
+#### subway entracnce
+    Provides the location, name and its line of New York subway entrance
+    Link:  https://data.cityofnewyork.us/Transportation/Subway-Entrances/drex-xx56Description: 
+#### public wifi location:
+    Link:  https://data.cityofnewyork.us/Social-Services/NYC-Wi-Fi-Hotspot-Locations/a9we-mtpnDescription
+#### restaurant inspection:
+    Provides name, location, cuisine, phone numbers of restaurants in New York
+    Link: https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j/dataDescription 
+#### landmarks and historic building stuff:
+    Provides the location, name, type, designated date of landmarks in New York.
+    Link: https://data.cityofnewyork.us/Housing-Development/Individual-Landmark-Sites/ts56-fkf5Description
+
+### database structure
+#### pymongo
+data_loading_formongo.py
+#### postgres 
+create-tables.sql
+
 ### run the program
 the entrance of the program is run.py.So can run the application just ``` python run.py ```
 One thing to note is that before run run.py. Should run create-database.sql (which in the folder named SQL) to build the database
