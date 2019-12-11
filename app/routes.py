@@ -140,7 +140,7 @@ def restaurantSearch_results():
         FROM restuarants\
         WHERE restuarantName ilike %s AND\
         cuisineType ilike %s AND\
-        neighboorhood ilike %s AND\
+        neighboorhood ilike %s\
         ORDER BY %s"
 
         cursor.execute(query %(name, cuisineType, neigh, order))
