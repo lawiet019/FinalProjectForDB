@@ -5,6 +5,7 @@ import pymongo
 import csv
 import regex as re
 import ipdb
+
 def calCenter(s):
     number_list = re.findall(r'\d+.\d+',s)
     odd_sum = 0
@@ -24,9 +25,9 @@ def calCenter(s):
 #connect the mongodb
 client = pymongo.MongoClient('127.0.0.1', 27017)
 # create database
-db= client['final_project']
+db = client['final_project']
 # get the number of collections
-collections = db.list_collection_names(session=None)
+collections = db.list_collection_names()
 if len(collections) != 0:
     for col in collections:
         del_col = db[col]
@@ -97,7 +98,7 @@ with  open("data/wifi.csv", "r",encoding="utf-8") as f:
         new_wifi["name"] = wifi[5]
         new_wifi["location"] = wifi[6]
         new_wifi["remarks"] = wifi[12]
-        new_wifi["city"] = wifi[13]
+        new_wifi["neighboorhood"] = wifi[18]
         new_wifi["ssid"] = wifi[14]
         new_wifi["activatedDate"] = wifi[16]
         new_wifi["NTACODE"] = wifi[19]
