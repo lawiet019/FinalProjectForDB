@@ -44,9 +44,9 @@ def index():
 def wifi_result():
     if request.method == 'POST':
         wifiType = request.values.get("wifiTypeSel")
-        city  =  request.values.get("city")
-        wifi_list = db["wifi"].find({'city':city,'wifiType':wifiType})
-        count = db["wifi"].find({'city':city,'wifiType':wifiType}).count()
+        neighboorhood  =  request.values.get("neighboorhood")
+        wifi_list = db["wifi"].find({'neighboorhood':neighboorhood,'wifiType':wifiType})
+        count = db["wifi"].find({'neighboorhood':neighboorhood,'wifiType':wifiType}).count()
         return render_template('wifiresult.html',count = count,wifi_list = wifi_list)
 
 @app.route('/wifineareresult',methods=['GET','POST'])
@@ -99,6 +99,7 @@ def goodrestnl_result():
         result = cursor.fetchall()
         count = result[0][0]
         return render_template('restaurant.html',count = count,rest_list = rest_list)
+
 @app.route('/landmarknr')
 def landmarknr_result():
     query = "select distinct landmarkname, sum(ct)/count(restuarants.CAMIS), count(restuarants.CAMIS)\
@@ -127,3 +128,27 @@ def landmarknr_result():
         new_landmark["num"] = record[2]
         landmark_list.append(new_landmark)
     return render_template('landmarkresult.html',landmark_list = landmark_list)
+
+@app.route('/restuarantSearchComplete',methods=['GET','POST'])
+def restaurantSearch_results():
+    if request.method == 'POST':    
+        name ="'%" + request.values.get("name") + "%'"
+        cuisineType = "'%" + request.values.get("type") + "%'"
+        query = "select distinct CAMIS, restuarantName, longitude, latitude, cuisineType, street, zipcode, phone\
+        FROM restuarants\
+        WHERE restuarantName ilike %s AND\
+        cuisineType ilike %s"
+        cursor.execute(query %(name, cuisineType))
+        records = cursor.fetchall()
+        rest_list= []
+        for record in records:
+            new_rest = {}
+            new_rest["restaurantName"] = record[1]
+            new_rest["longitude"] = record[2]
+            new_rest["latitude"] = record[3]
+            new_rest["cuisineType"] = record[4]
+            new_rest["street"] = record[5]
+            new_rest["zipcode"] = record[6]
+            new_rest["phone"] = record[7]
+            rest_list.append(new_rest)
+        return render_template('restaurantFull.html',rest_list = rest_list)

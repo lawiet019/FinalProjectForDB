@@ -4,16 +4,17 @@
 <div class="section">
 <!-- find the wifi-->
 <p>
-  <strong>1.find the number of wifi of different cities and different providers and wifiType</strong>
+  <strong>1. Find wifi of different neigborhoods and different providers in New York City</strong>
 </p>
 <form class="form-horizontal" method="POST" action="{{ url_for('wifi_result') }}">
   <span>the wifi which type is</span>
   <select class="btn-inline" name="wifiTypeSel">
+    <option value= ""></option>
     <option value= "Free">Free</option>
     <option value= "Limited Free">Limited Free</option>
     <option value= "Partner Site">Partner Site</option>
   </select>
-  <span>, city is (in New York)<span>
+  <span>, Neighboorhood is (in New York)<span>
   <input type="text" class="btn-inline" placeholder="Enter the city..." name="city">
   <button type="submit" class="btn btn-default btn-inline">Search</button>
 </form>
@@ -21,7 +22,7 @@
 
 <!-- find the wifi nearcertain entrance-->
 <div class="section">
-<p> <strong>2.find the number of wifi near certain entrance </strong> </p>
+<p> <strong>2. Find public wifi near certain subway entrance </strong> </p>
 <form class="form-horizontal" method="POST" action="{{ url_for('wifinearE_result') }}">
   <span>the Id of certain entrance will be </span>
   <input type="text" class="btn-inline" placeholder="code btw 1 and 1932 ..." name="id">
@@ -49,6 +50,19 @@
 <button type="submit" class="btn btn-default btn-inline">View</button>
 </form>
 </div>
+
+
+<!-- search restuarants -->
+<div class="section">
+  <p> <strong>4. Search for restaurants </strong> </p>
+  <form class="form-horizontal" method="POST" action="{{ url_for('restaurantSearch_results') }}">
+    <span>Restaurant Name: <span>
+    <input type="text" class="btn-inline" placeholder="Enter name..." name="name">
+    <span>Cuisine Type: <span>
+    <input type="text" class="btn-inline" placeholder="Enter type..." name="type">
+    <button type="submit" class="btn btn-default btn-inline">Search</button>
+  </form>
+  </div>
 
 </main>
 
