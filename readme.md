@@ -19,7 +19,6 @@ FinalProjectForDB
 │    ├─ __init__.py // init the app
 │    ├─ __pycache__
 │    ├─ data_loading_formongo.py //loading data to mongodb  
-│    ├─ database.conf // the configuration of the database
 │    ├─ dataloading.py // loading data to postgres
 │    ├─ init_db.py   // to create tables by use create-tables.sql in SQL folder
 │    ├─ routes.py  // show the URL and its corespoding template. Also, query data here/
@@ -27,5 +26,6 @@ FinalProjectForDB
 │    └─ templates  // the templates that will generate the html
 ├─ data // when we load data, we get one from online ,and get another three from csv. This folder contains csv
 ├─ readme.md  // explain of whole project
+├─ database.conf // the configuration of the database
 └─ run.py   // entrance of whole project
 ```
