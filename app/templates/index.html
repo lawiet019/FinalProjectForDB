@@ -39,6 +39,23 @@
     </form>
     </div>
 
+<!-- search landmarks -->
+<div class="section">
+  <p> <strong>Search for landmarks </strong> </p>
+  <form class="form-horizontal" method="POST" action="{{ url_for('landmarkSearch_results') }}">
+    <span>Landmark Name: <span>
+    <input type="text" class="btn-inline" placeholder="Enter Name..." name="name">
+    <span><br> Neighboorhood: <span>
+    <input type="text" class="btn-inline" placeholder="Enter Neighboorhood..." name="neigh">
+    <span><br> Sort By: <span>
+    <select class="btn-inline" name="order">
+        <option value= "landmarkName">Landmark Name</option>
+        <option value= "neighborhood">Neighborhood</option>
+      </select>
+    <button type="submit" class="btn btn-default btn-inline">Search</button>
+  </form>
+  </div>
+
 <!-- search neighborhood features -->
 <div class="section">
   <p> <strong>Search for neighborhood features </strong> </p>

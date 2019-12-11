@@ -167,12 +167,14 @@ for i in range(0, len(landmarks_df)):
     landmarks_df['Address'][i] = str(landmarks_df['Address'][i])
     landmarks_df['Address'][i] =landmarks_df['Address'][i].replace("'","")
     centerLatitude, centerLogitude = calCenter(landmarks_df['the_geom'][i])
-
-    cursor.execute( "INSERT INTO landmarks (objectID, landmarkName,centerLogitude ,centerLatitude , address, additionalInfoURL) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')" %
+    neighboorhood = landmarks_df['Borough'][i]
+    print(neighboorhood)
+    cursor.execute( "INSERT INTO landmarks (objectID, landmarkName,centerLogitude ,centerLatitude , neighborhood, address, additionalInfoURL) VALUES ('%s', '%s', '%s', '%s', '%s',  '%s', '%s')" %
                     (landmarks_df['OBJECTID'][i],
                     landmarks_df['LPC_NAME'][i],
                     centerLogitude,
                     centerLatitude,
+                    neighboorhood,
                     landmarks_df['Address'][i],
                     landmarks_df['URL_REPORT'][i]
                     )

@@ -258,3 +258,30 @@ def neighborhoodResults():
             new_rest["type"] = "Restaurant"          
             rest_list.append(new_rest)
         return render_template('featuresNeigh.html', rest_list = rest_list)
+
+@app.route('/landmarkSearchComplete',methods=['GET','POST'])
+def landmarkSearch_results():
+    if request.method == 'POST':    
+        name ="'%" + request.values.get("name") + "%'"
+        neigh = "'%" + request.values.get("neigh") + "%'"
+        order = request.values.get("order")
+        query = "select objectID, landmarkName, centerLogitude, centerLatitude, neighborhood, address, additionalInfoURL\
+        FROM landmarks\
+        WHERE landmarkName ilike %s AND\
+        neighborhood ilike %s\
+        ORDER BY %s"
+
+        cursor.execute(query %(name, neigh, order))
+        records = cursor.fetchall()
+        rest_list= []
+        for record in records:
+            new_rest = {}
+            new_rest["objectID"] = record[0]
+            new_rest["landmarkName"] = record[1]
+            new_rest["longitude"] = record[2]
+            new_rest["latitude"] = record[3]
+            new_rest["neighborhood"] = record[4]
+            new_rest["address"] = record[5]
+            new_rest["additionalInfoURL"] = record[6]
+            rest_list.append(new_rest)
+        return render_template('landmarks.html',rest_list = rest_list)
