@@ -48,5 +48,5 @@ FinalProjectForDB
 ├─ database.conf // the configuration of the database
 └─ run.py   // entrance of whole project
 ```
-### Note To Professor:
+### note to professor:
 Please take a look at our create-database.sql file to see our sql for regrading.
