@@ -25,3 +25,20 @@ WHERE grade ='A'
   )
 Group by landmarkname
 order by sum(ct)/count(restuarants.CAMIS), count(restuarants.CAMIS) DESC;
+
+
+select CAMIS, restuarantName, longitude, latitude, cuisineType, neighborhood, street, zipcode, phone
+FROM restuarants
+WHERE CAMIS = 41672792;
+
+select InspectionDate, ViolationCode
+from inspections
+where CAMIS = 41672792
+Order By InspectionDate;
+
+select distinct CAMIS, restuarantName, longitude, latitude, cuisineType, neighborhood, street, zipcode, phone\
+FROM restuarants
+WHERE restuarantName ilike %s AND
+cuisineType ilike %s AND
+neighborhood ilike %s
+ORDER BY %s
