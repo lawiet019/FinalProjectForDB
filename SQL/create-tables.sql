@@ -36,7 +36,7 @@ CREATE TABLE restuarants (
     cuisineType VARCHAR(255),
     street varchar(255),
     zipcode varchar(6),
-    neighboorhood varchar(255),
+    neighborhood varchar(255),
     phone varchar(10) -- phone numebr char or int??
 );
 

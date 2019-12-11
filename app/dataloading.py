@@ -82,7 +82,7 @@ data =  {'CAMIS': list(full_restuarant_df['camis']),
         'cuisineDescription': list(full_restuarant_df['cuisine_description']),
         'street': list(full_restuarant_df['street']),
         'zipcode': list(full_restuarant_df['zipcode']),
-        'neighboorhood': list(full_restuarant_df['boro']),
+        'neighborhood': list(full_restuarant_df['boro']),
         'phone': list(full_restuarant_df['phone'])
         }
 restuarants_df = pd.DataFrame(data)
@@ -98,10 +98,10 @@ for i in range(0, len(restuarants_df)):
         restuarants_df['zipcode'][i] = int(restuarants_df['zipcode'][i])
     restuarants_df['restuarantName'][i] = str(restuarants_df['restuarantName'][i])
     restuarants_df['restuarantName'][i] =restuarants_df['restuarantName'][i].replace("'","")
-    restuarants_df['neighboorhood'][i] = str(restuarants_df['neighboorhood'][i]) 
+    restuarants_df['neighborhood'][i] = str(restuarants_df['neighborhood'][i]) 
     restuarants_df['longitude'][i] = float(restuarants_df['longitude'][i])
     restuarants_df['longitude'][i] = abs(restuarants_df['longitude'][i])
-    cursor.execute( "INSERT INTO restuarants (CAMIS,longitude, latitude, restuarantName,cuisineType, street, zipcode, neighboorhood, phone)  VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s')" %
+    cursor.execute( "INSERT INTO restuarants (CAMIS,longitude, latitude, restuarantName,cuisineType, street, zipcode, neighborhood, phone)  VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s')" %
                     (restuarants_df['CAMIS'][i],
                     restuarants_df['longitude'][i],
                     restuarants_df['latitude'][i],
@@ -109,7 +109,7 @@ for i in range(0, len(restuarants_df)):
                     restuarants_df['cuisineDescription'][i],
                     restuarants_df['street'][i],
                     restuarants_df['zipcode'][i],
-                    restuarants_df['neighboorhood'][i],
+                    restuarants_df['neighborhood'][i],
                     restuarants_df['phone'][i]
                     )
         )

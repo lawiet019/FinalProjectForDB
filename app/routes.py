@@ -136,11 +136,11 @@ def restaurantSearch_results():
         cuisineType = "'%" + request.values.get("type") + "%'"
         neigh = "'%" + request.values.get("neigh") + "%'"
         order = request.values.get("order")
-        query = "select distinct CAMIS, restuarantName, longitude, latitude, cuisineType, neighboorhood, street, zipcode, phone\
+        query = "select distinct CAMIS, restuarantName, longitude, latitude, cuisineType, neighborhood, street, zipcode, phone\
         FROM restuarants\
         WHERE restuarantName ilike %s AND\
         cuisineType ilike %s AND\
-        neighboorhood ilike %s\
+        neighborhood ilike %s\
         ORDER BY %s"
 
         cursor.execute(query %(name, cuisineType, neigh, order))
@@ -152,7 +152,7 @@ def restaurantSearch_results():
             new_rest["longitude"] = record[2]
             new_rest["latitude"] = record[3]
             new_rest["cuisineType"] = record[4]
-            new_rest["neighboorhood"] = record[5]
+            new_rest["neighborhood"] = record[5]
             new_rest["street"] = record[6]
             new_rest["zipcode"] = record[7]
             new_rest["phone"] = record[8]
