@@ -32,6 +32,7 @@ if len(collections) != 0:
     for col in collections:
         del_col = db[col]
         del_col.drop()
+'''
 #create the collections landmark
 cur_col = db["landmarks"]
 csv.field_size_limit(100000000)
@@ -53,7 +54,7 @@ with  open("data/landmark.csv", "r") as f:
         landmark_list.append(new_landmark)
 # insert data into database
 cur_col.insert_many(landmark_list)
-
+'''
 #create the collections entrances
 cur_col = db["entrances"]
 
