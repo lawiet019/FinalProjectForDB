@@ -174,7 +174,7 @@ for i in range(0, len(landmarks_df)):
                     landmarks_df['LPC_NAME'][i],
                     centerLogitude,
                     centerLatitude,
-                    neighboorhood,
+                    neighboorhood[i],
                     landmarks_df['Address'][i],
                     landmarks_df['URL_REPORT'][i]
                     )

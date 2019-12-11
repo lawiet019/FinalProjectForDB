@@ -216,6 +216,8 @@ def restaurantVioSearch_results():
 @app.route('/Neighboorhood_Features',methods=['GET','POST'])
 def neighborhoodResults():
     if request.method == 'POST':    
+        rest_list= []
+
         neigh = request.values.get("name")
         query1 = "select objectID, landmarkName, centerLogitude, centerLatitude, address\
         FROM landmarks\
@@ -247,7 +249,6 @@ def neighborhoodResults():
         WHERE neighborhood ilike '%s'"
         cursor.execute(query %(str(neigh)))
         records = cursor.fetchall()
-        rest_list= []
         for record in records:
             new_rest = {}
             new_rest["ID"] = record[0]
