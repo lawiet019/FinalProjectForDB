@@ -82,7 +82,6 @@ data =  {'CAMIS': list(full_restuarant_df['camis']),
         'cuisineDescription': list(full_restuarant_df['cuisine_description']),
         'street': list(full_restuarant_df['street']),
         'zipcode': list(full_restuarant_df['zipcode']),
-        'neighborhood': list(full_restuarant_df['boro']),
         'phone': list(full_restuarant_df['phone'])
         }
 restuarants_df = pd.DataFrame(data)
@@ -98,10 +97,9 @@ for i in range(0, len(restuarants_df)):
         restuarants_df['zipcode'][i] = int(restuarants_df['zipcode'][i])
     restuarants_df['restuarantName'][i] = str(restuarants_df['restuarantName'][i])
     restuarants_df['restuarantName'][i] =restuarants_df['restuarantName'][i].replace("'","")
-    restuarants_df['neighborhood'][i] = str(restuarants_df['neighborhood'][i]) 
     restuarants_df['longitude'][i] = float(restuarants_df['longitude'][i])
     restuarants_df['longitude'][i] = abs(restuarants_df['longitude'][i])
-    cursor.execute( "INSERT INTO restuarants (CAMIS,longitude, latitude, restuarantName,cuisineType, street, zipcode, neighborhood, phone)  VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s', '%s')" %
+    cursor.execute( "INSERT INTO restuarants (CAMIS,longitude, latitude, restuarantName,cuisineType, street, zipcode, phone)  VALUES ('%s', '%s', '%s', '%s', '%s','%s', '%s', '%s')" %
                     (restuarants_df['CAMIS'][i],
                     restuarants_df['longitude'][i],
                     restuarants_df['latitude'][i],
@@ -109,7 +107,6 @@ for i in range(0, len(restuarants_df)):
                     restuarants_df['cuisineDescription'][i],
                     restuarants_df['street'][i],
                     restuarants_df['zipcode'][i],
-                    restuarants_df['neighborhood'][i],
                     restuarants_df['phone'][i]
                     )
         )
@@ -148,12 +145,9 @@ for i in range(0, len(violations_df)):
 
 landmarks_df = pd.read_csv("data/landmark.csv")
 
+
 def calCenter(s):
     number_list = re.findall(r'\d+.\d+',s)
-    
-    if(len(number_list) == 0):
-        return [0, 0]
-    
     odd_sum = 0
     even_sum = 0
     for i in range(len(number_list)):
@@ -164,31 +158,21 @@ def calCenter(s):
 
     long = even_sum/len(number_list)*2
     lat = odd_sum/len(number_list)*2
-    
+
     return [lat,long]
 
 for i in range(0, len(landmarks_df)):
-    landmarks_df['LPC_NAME'][i] =str(landmarks_df['LPC_NAME'][i]).replace("'","")
-    landmarks_df['URL_REPORT'][i] = str(landmarks_df['URL_REPORT'][i]).replace("'","")
+    landmarks_df['LPC_NAME'][i] =landmarks_df['LPC_NAME'][i].replace("'","")
+    landmarks_df['URL_REPORT'][i] =landmarks_df['URL_REPORT'][i].replace("'","")
     landmarks_df['Address'][i] = str(landmarks_df['Address'][i])
-    landmarks_df['Address'][i] = landmarks_df['Address'][i].replace("'","")
-    centerLatitude, centerLogitude = calCenter(str(landmarks_df['the_geom'][i]))
+    landmarks_df['Address'][i] =landmarks_df['Address'][i].replace("'","")
+    centerLatitude, centerLogitude = calCenter(landmarks_df['the_geom'][i])
 
-    if(landmarks_df['OBJECTID'][i] == 'nan'): 
-        landmarks_df['OBJECTID'][i] = None
-    if(landmarks_df['URL_REPORT'][i] == 'nan'): 
-        landmarks_df['URL_REPORT'][i] = None
-    if(landmarks_df['Borough'][i] == 'nan'): 
-        landmarks_df['Borough'][i] = None
-    if(landmarks_df['Address'][i] == 'nan'): 
-        landmarks_df['Address'][i] = None   
-
-    cursor.execute( "INSERT INTO landmarks (objectID, landmarkName,centerLogitude ,centerLatitude , neighborhood, address, additionalInfoURL) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s')" %
+    cursor.execute( "INSERT INTO landmarks (objectID, landmarkName,centerLogitude ,centerLatitude , address, additionalInfoURL) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')" %
                     (landmarks_df['OBJECTID'][i],
                     landmarks_df['LPC_NAME'][i],
                     centerLogitude,
                     centerLatitude,
-                    landmarks_df['Borough'],
                     landmarks_df['Address'][i],
                     landmarks_df['URL_REPORT'][i]
                     )
