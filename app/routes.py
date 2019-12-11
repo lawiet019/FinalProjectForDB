@@ -212,3 +212,39 @@ def restaurantVioSearch_results():
 
 
         return render_template('violation.html', rest_list = rest_list, violationList = violations)
+
+@app.route('/Neighboorhood_Features',methods=['GET','POST'])
+def neighborhoodResults():
+    if request.method == 'POST':    
+        neigh = request.values.get("name")
+        query = "select CAMIS, restuarantName, longitude, latitude, street\
+        FROM restuarants\
+        WHERE neighborhood ilike '%s'"
+        cursor.execute(query %(str(neigh)))
+        records = cursor.fetchall()
+        rest_list= []
+        for record in records:
+            new_rest = {}
+            new_rest["ID"] = record[0]
+            new_rest["name"] = record[1]
+            new_rest["longitude"] = record[2]
+            new_rest["latitude"] = record[3]
+            new_rest["address"] = record[4]
+            new_rest["type"] = "Restaurant"          
+            rest_list.append(new_rest)
+
+        query = "select objectID, landmarkName, centerLogitude, centerLatitude, address\
+        FROM landmarks\
+        WHERE neighborhood ilike '%s'"
+        cursor.execute(query %(str(neigh)))
+        records = cursor.fetchall()
+        for record in records:
+            new_rest = {}
+            new_rest["ID"] = record[0]
+            new_rest["name"] = record[1]
+            new_rest["longitude"] = record[2]
+            new_rest["latitude"] = record[3]
+            new_rest["latitude"] = record[4]
+            new_rest["type"] = "Landmark"          
+            rest_list.append(new_rest)
+        return render_template('featuresNeigh.html', rest_list = rest_list)
